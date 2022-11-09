@@ -1,0 +1,44 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Notes List";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Notes List</h1>
+    <form method="post" class="card p-3">
+        <div class="row">
+            <div asp-validation-summary="All"></div>
+        </div>
+        <div class="form-group mb-0 align-middle">
+            <label asp-for="NewNote.Title">Title</label>
+            <input type="text" asp-for="NewNote.Title" class="mr-5">
+            <label asp-for="NewNote.Message">Message</label>
+            <input type="text" asp-for="NewNote.Message" class="mr-5">
+            <button class="btn btn-primary">Add</button>
+        </div>
+    </form>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Message</th>
+            </tr>
+        </thead>
+        @foreach (var note in Model.notes)
+        {
+            <tr>
+                <td>@note.Title</td>
+                <td>@note.Message</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@note.Id">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
